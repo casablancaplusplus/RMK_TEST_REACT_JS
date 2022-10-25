@@ -1,51 +1,76 @@
-import React, { Fragment, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { userSelector, fetchUserBytoken, clearState } from './UserSlice';
-import Loader from 'react-loader-spinner';
-import { useHistory } from 'react-router-dom';
+import React, { Fragment, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userSelector, clearState } from "./UserSlice";
+import { fetchProducts, productSelector } from "../Product/ProductSlice";
+
+import { useHistory } from "react-router-dom";
+import { AgGridReact } from "ag-grid-react";
+
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
 const Dashboard = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const { isFetching, isError } = useSelector(userSelector);
+  const { products } = useSelector(productSelector);
+  const { isError } = useSelector(userSelector);
+
   useEffect(() => {
-    dispatch(fetchUserBytoken({ token: localStorage.getItem('token') }));
+    dispatch(fetchProducts());
   }, []);
 
-  const { username, email } = useSelector(userSelector);
+  useEffect(() => {
+    if (products.length > 0)
+      setColumnDefs(
+        Object.keys(products[0]).map((k) => {
+          return {
+            field: k,
+          };
+        })
+      );
+  }, [products]);
+
+  const [columnDefs, setColumnDefs] = useState([]);
 
   useEffect(() => {
     if (isError) {
       dispatch(clearState());
-      history.push('/login');
+      history.push("/login");
     }
   }, [isError]);
 
   const onLogOut = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
-    history.push('/login');
+    history.push("/login");
   };
 
   return (
     <div className="container mx-auto">
-      {isFetching ? (
-        <Loader type="Puff" color="#00BFFF" height={100} width={100} />
-      ) : (
-        <Fragment>
-          <div className="container mx-auto">
-            Welcome back <h3>{username}</h3>
-          </div>
+      <Fragment>
+        <div className="container mx-auto">Welcome</div>
 
-          <button
-            onClick={onLogOut}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Log Out
-          </button>
-        </Fragment>
-      )}
+        <button
+          onClick={onLogOut}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Log Out
+        </button>
+      </Fragment>
+      <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
+        <AgGridReact
+          rowData={products}
+          columnDefs={columnDefs}
+          defaultColDef={{
+            cellStyle: () => ({
+              display: "flex",
+              alignItems: "left",
+              justifyContent: "left",
+            }),
+          }}
+        ></AgGridReact>
+      </div>
     </div>
   );
 };

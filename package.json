@@ -9,6 +9,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "ag-grid-community": "^28.2.0",
+    "ag-grid-react": "^28.2.0",
     "autoprefixer": "^9.8.6",
     "nodemon": "^2.0.7",
     "postcss": "^7.0.35",

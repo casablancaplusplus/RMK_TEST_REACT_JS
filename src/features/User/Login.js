@@ -1,18 +1,17 @@
-import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, userSelector, clearState } from './UserSlice';
-import toast from 'react-hot-toast';
-import { useHistory } from 'react-router-dom';
+import React, { Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, userSelector, clearState } from "./UserSlice";
+import toast from "react-hot-toast";
+import { useHistory } from "react-router-dom";
 
 const Login = ({}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { register, errors, handleSubmit } = useForm();
-  const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-    userSelector
-  );
+  const { isFetching, isSuccess, isError, errorMessage } =
+    useSelector(userSelector);
   const onSubmit = (data) => {
     dispatch(loginUser(data));
   };
@@ -31,7 +30,7 @@ const Login = ({}) => {
 
     if (isSuccess) {
       dispatch(clearState());
-      history.push('/');
+      history.push("/");
     }
   }, [isError, isSuccess]);
 
@@ -52,19 +51,19 @@ const Login = ({}) => {
             >
               <div>
                 <label
-                  for="email"
+                  for="username"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email address
+                  Username
                 </label>
                 <div className="mt-1">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="username"
+                    name="username"
+                    type="text"
+                    autoComplete="username"
                     ref={register({
-                      pattern: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/i,
+                      required: true,
                     })}
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -123,15 +122,6 @@ const Login = ({}) => {
                 </button>
               </div>
             </form>
-            <div class="mt-6">
-              <div class="relative">
-                <div class="relative flex justify-center text-sm">
-                  <span class="px-2 bg-white text-gray-500">
-                    Or <Link to="signup"> Signup</Link>
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
