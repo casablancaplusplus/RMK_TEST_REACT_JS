@@ -2,9 +2,9 @@
 
 ### How to run
 
-1- Clone the repo
-2- "npm install"
-3- "npm start"
+- Clone the repo
+- "npm install"
+- "npm start"
 
 ### Libraries Used
 -  [React/Redux Toolkit](https://redux-toolkit.js.org/)
