@@ -1,8 +1,10 @@
-## Modern React Redux Toolkit - User Login & Registration Example
+## Modern React Redux Toolkit - User Login & Registration
 
-### Demo
+### How to run
 
-![Demo]('https://raw.githubusercontent.com/ganeshmani/redux-toolkit-user-flow/master/demo.gif')
+1- Clone the repo
+2- "npm install"
+3- "npm start"
 
 ### Libraries Used
 -  [React/Redux Toolkit](https://redux-toolkit.js.org/)
