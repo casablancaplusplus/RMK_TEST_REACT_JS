@@ -1,4 +1,4 @@
-## Modern React Redux Toolkit - User Login & Registration
+## Modern React Redux Toolkit - User Login & Fetch Products
 
 ### How to run
 
